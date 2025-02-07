@@ -1,0 +1,109 @@
+@font-face {
+  font-family: "Montserrat-Regular";
+  src: url("../assets/fonts/Montserrat-Regular.ttf") format("truetype");
+  font-weight: 400; 
+  font-style: normal;
+}
+
+label{ /**/
+  font-size: 40px;
+  color: #F4F4F8;
+  font-weight: bold;
+}
+
+body {
+  margin: 0;
+  background-color: #ffffff;
+  width: 100vw;
+  height: 100vh;
+  justify-items: center;
+  align-content: center;
+}
+
+h1,
+span,
+form,
+input {
+  margin: 0;
+  font-family: "Montserrat-Regular", sans-serif;
+}
+
+.blocoprincipal { /**/
+  display: flex;
+  grid-template-columns: 1fr 1fr;
+  position: relative;
+  max-width: 1000px; 
+}
+
+.bloco_cadastro { /**/
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 600px;
+  width: 700px;
+  padding: 5px 55px;
+  border-radius: 0px 10px 10px 0px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.bloco-login-mensagem { /**/
+  display: block;
+  font-size: xx-large;
+  font-family: "Montserrat-Bold", sans-serif;
+  place-self: flex-start;
+  color: #0B5C09;
+  font-size: 48px;
+}
+
+.btn-env{
+  font-family: "Montserrat-Bold", sans-serif;
+  display: block;
+  width: 40%;
+  padding: 15px 40px;
+  border-radius: 7px;
+  border: 0;
+  background-color: #85C549;
+  color: #ffffff;
+  cursor: pointer;
+  font-size: large;
+  margin: 20px auto 0;
+}
+
+.bloco-cor { /**/
+  display: flex;
+  flex-wrap: wrap;
+  background-image: url(/docai2.jpg);
+  background-size: cover;
+  height: 600px;
+  width: 400px;
+  border-radius: 10px 0px 0px 10px;
+}
+
+.titulo_colorido{ /**/
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  margin-top: 10px;
+  padding: 50px;
+}
+
+.container-formulario { /**/
+  display: flex;
+  flex-direction: column;
+}
+
+.formulario { /**/
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.campos { /**/
+  flex: 0 1 45%;
+  margin-bottom: 25px;
+}
+
+.campos-obs { /**/
+  flex: 1 1 100%;
+  margin-bottom: 25px;
+}
