@@ -23,6 +23,7 @@ class Empresa(models.Model):
         return self.nomeFantasia
 
 class GestaoDePessoas(models.Model):
+    empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE, related_name="gestao_pessoas") 
     capitalSocial = models.DecimalField(max_digits=15, decimal_places=2, verbose_name="Capital Social")
     funcionarioCLT = models.IntegerField(verbose_name="Funcionários CLT")
     funcionarioTercerizados = models.IntegerField(verbose_name="Funcionários Terceirizados")
@@ -31,10 +32,10 @@ class GestaoDePessoas(models.Model):
     socios = models.CharField(max_length=20, verbose_name="Sócios")
 
     def __str__(self):
-        return self.numSocios
+        return self.socios
 
 class Redes(models.Model):
-    empresa = models.OneToOneField(Empresa, on_delete=models.CASCADE, related_name="redes")
+    empresa = models.OneToOneField(Empresa, on_delete=models.CASCADE, related_name="redes", null=True)
     website = models.URLField(blank=True, null=True, verbose_name="Website")
     insta = models.URLField(blank=True, null=True, verbose_name="Instagram")
     facebook = models.URLField(blank=True, null=True, verbose_name="Facebook")
@@ -42,6 +43,9 @@ class Redes(models.Model):
     linkedin = models.URLField(blank=True, null=True, verbose_name="LinkedIn")
     zap = models.CharField(max_length=15, blank=True, null=True, verbose_name="WhatsApp")
     email = models.EmailField(blank=True, null=True, verbose_name="Email")
+
+    def __str__(self):
+        return self.email
 
 class Faturamento(models.Model):
     empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE, related_name="Empresa")

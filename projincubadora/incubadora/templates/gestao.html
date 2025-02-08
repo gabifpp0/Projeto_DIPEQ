@@ -26,82 +26,43 @@
         <div class="container-formulario">
 
           <form class="formulario" method="post" enctype="multipart/form-data">
-
+            {% csrf_token %}
 
             <div class="campos">
-              <label for="nome">Capital Social</label>
-              <input
-                type="text"
-                id="nome"
-                name="nome"
-                value="{{ form.nome.value|default:'' }}"
-                required
-              />
-            </div>
-            
-            <div class="campos">
-              <label for="email">Funcionários CLT</label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                value="{{ form.email.value|default:'' }}"
-                required
-              />
+              <label for="capital">Capital Social</label>
+              {{ form.capitalSocial }}
+              {{ form.capitalSocial.errors }}
             </div>
 
             <div class="campos">
-              <label for="telefone">Funcionários Terceirizados</label>
-              <input
-                type="tel"
-                id="telefone"
-                name="telefone"
-                value="{{ form.telefone.value|default:'' }}"
-                required
-              />
+              <label for="CLT">Funcionários CLT</label>
+              {{ form.funcionarioCLT }}
+              {{ form.funcionarioCLT.errors }}
             </div>
 
             <div class="campos">
-              <label for="cargo">Estagiários</label>
-              <input
-                type="text"
-                id="cargo"
-                name="cargo"
-                value="{{ form.cargo.value|default:'' }}"
-                required
-              />
+              <label for="terceirizados">Funcionários Terceirizados</label>
+              {{ form.funcionarioTercerizados }}
+              {{ form.funcionarioTercerizados.errors }}
             </div>
 
             <div class="campos">
-              <label for="obs">Número de sócios</label>
-              <input
-                type="text"
-                id="obs"
-                name="obs"
-                value="{{ form.obs.value|default:'' }}"
-              />
+              <label for="estagiarios">Estagiários</label>
+              {{ form.estagiario }}
+              {{ form.estagiario.errors }}
             </div>
 
             <div class="campos">
-                <label for="obs">Nome dos sócios</label>
-                <input
-                  type="text"
-                  id="obs"
-                  name="obs"
-                  value="{{ form.obs.value|default:'' }}"
-                />
+              {{ form.numSocios }}
+              {{ form.numSocios.errors }}
+            </div>
+
+            <div class="campos">
+                <label for="socios">Nome dos sócios</label>
+                {{ form.socios }}
+                {{ form.socios.errors }}
               </div>
 
-            <div class="campos-obs">
-              <label for="obs">Observações</label>
-              <input
-                type="text"
-                id="obs"
-                name="obs"
-                value="{{ form.obs.value|default:'' }}"
-              />
-            </div>
-        
             <button type="submit" class="btn-env">Próximo</button>
           </form>
         </div>

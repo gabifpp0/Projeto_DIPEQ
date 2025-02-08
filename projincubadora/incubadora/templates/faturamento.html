@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    {% load static %}
+    <link rel="stylesheet" href={% static 'css/cadastro.css' %}>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" rel="stylesheet">
+    
+    <title>Cadastro</title>
+  </head>
+  <body>
+
+    <div class="blocoprincipal">
+    
+      <div class="bloco-cor">
+        <div class="titulo_colorido">
+          <h1 class="bloco-login-mensagem">Cadastre sua empresa!</h1>
+        </div>
+      </div>
+
+      <div class="bloco_cadastro">
+        
+        <div class="container-formulario">
+
+          <form class="formulario" method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+
+            <div class="campos">
+              <label for="razao">Razão Social</label>
+              {{ form.razaoSocial }}
+              {{ form.razaoSocial.errors }}
+            </div>
+            
+            <div class="campos">
+              <label for="fantasia">Nome Fantasia</label>
+              {{ form.nomeFantasia }}
+              {{ form.nomeFantasia.errors }}
+            </div>
+
+            <div class="campos">
+              <label for="cnpj">CNPJ</label>
+              {{ form.cnpj }}
+              {{ form.cnpj.errors }}
+            </div>
+
+            <div class="campos">
+              <label for="area">Área de atuação</label>
+              {{ form.areaAtuacao }}
+              {{ form.areaAtuacao.errors }}
+            </div>
+
+            <div class="campos">
+              <label for="atuacao">Tempo de atuação no mercado</label>
+              {{ form.tempoAtuacaoMercado }}
+              {{ form.tempoAtuacaoMercado.errors }}
+            </div>
+        
+            <button type="submit" class="btn-env">Próximo</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

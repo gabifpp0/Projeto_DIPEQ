@@ -26,83 +26,50 @@
         <div class="container-formulario">
 
           <form class="formulario" method="post" enctype="multipart/form-data">
-
+            {% csrf_token %}
 
             <div class="campos">
-              <label for="nome">Website</label>
-              <input
-                type="text"
-                id="nome"
-                name="nome"
-                value="{{ form.nome.value|default:'' }}"
-                required
-              />
-            </div>
-            
-            <div class="campos">
-              <label for="email">Instagram</label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                value="{{ form.email.value|default:'' }}"
-                required
-              />
+              <label for="website">Website</label>
+              {{ form.website }}
+              {{ form.website.errors }}
             </div>
 
             <div class="campos">
-              <label for="telefone">Facebook</label>
-              <input
-                type="tel"
-                id="telefone"
-                name="telefone"
-                value="{{ form.telefone.value|default:'' }}"
-                required
-              />
+              <label for="insta">Instagram</label>
+              {{ form.insta }}
+              {{ form.insta.errors }}
             </div>
 
             <div class="campos">
-              <label for="cargo">Twitter</label>
-              <input
-                type="text"
-                id="cargo"
-                name="cargo"
-                value="{{ form.cargo.value|default:'' }}"
-                required
-              />
+              <label for="face">Facebook</label>
+              {{ form.facebook }}
+              {{ form.facebook.errors }}
             </div>
 
             <div class="campos">
-              <label for="obs">Linkedin</label>
-              <input
-                type="text"
-                id="obs"
-                name="obs"
-                value="{{ form.obs.value|default:'' }}"
-              />
+              <label for="twitter">Twitter</label>
+              {{ form.twitter }}
+              {{ form.twitter.errors }}
             </div>
 
             <div class="campos">
-                <label for="obs">Whatsapp</label>
-                <input
-                  type="text"
-                  id="obs"
-                  name="obs"
-                  value="{{ form.obs.value|default:'' }}"
-                />
+              <label for="linkedin">Linkedin</label>
+              {{ form.linkedin }}
+              {{ form.linkedin.errors }}
+            </div>
+
+            <div class="campos">
+                <label for="zap">Whatsapp</label>
+                {{ form.zap }}
+                {{ form.zap.errors }}
               </div>
 
               <div class="campos">
                 <label for="obs">E-mail</label>
-                <input
-                  type="text"
-                  id="obs"
-                  name="obs"
-                  value="{{ form.obs.value|default:'' }}"
-                />
+                {{ form.email }}
+                {{ form.email.errors }}
               </div>
             
-        
             <button type="submit" class="btn-env">Próximo</button>
           </form>
         </div>

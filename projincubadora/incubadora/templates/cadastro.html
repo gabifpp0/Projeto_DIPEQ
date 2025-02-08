@@ -29,68 +29,33 @@
           {% csrf_token %}
 
             <div class="campos">
-              <label for="nome">Razão Social</label>
-              <input
-                type="text"
-                id="nome"
-                name="nome"
-                value="{{ form.nome.value|default:'' }}"
-                required
-              />
+              <label for="razao">Razão Social</label>
+              {{ form.razaoSocial }}
+              {{ form.razaoSocial.errors }}
             </div>
             
-            {{ form.raza.errors }}
             <div class="campos">
-              <label for="email">Nome Fantasia</label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                value="{{ form.email.value|default:'' }}"
-                required
-              />
+              <label for="fantasia">Nome Fantasia</label>
+              {{ form.nomeFantasia }}
+              {{ form.nomeFantasia.errors }}
             </div>
 
             <div class="campos">
-              <label for="telefone">CNPJ</label>
-              <input
-                type="tel"
-                id="telefone"
-                name="telefone"
-                value="{{ form.telefone.value|default:'' }}"
-                required
-              />
+              <label for="cnpj">CNPJ</label>
+              {{ form.cnpj }}
+              {{ form.cnpj.errors }}
             </div>
 
             <div class="campos">
-              <label for="cargo">Área de atuação</label>
-              <input
-                type="text"
-                id="cargo"
-                name="cargo"
-                value="{{ form.cargo.value|default:'' }}"
-                required
-              />
+              <label for="area">Área de atuação</label>
+              {{ form.areaAtuacao }}
+              {{ form.areaAtuacao.errors }}
             </div>
 
             <div class="campos">
-              <label for="obs">Tempo de atuação no mercado</label>
-              <input
-                type="text"
-                id="obs"
-                name="obs"
-                value="{{ form.obs.value|default:'' }}"
-              />
-            </div>
-
-            <div class="campos-obs">
-              <label for="obs">Observações</label>
-              <input
-                type="text"
-                id="obs"
-                name="obs"
-                value="{{ form.obs.value|default:'' }}"
-              />
+              <label for="atuacao">Tempo de atuação no mercado</label>
+              {{ form.tempoAtuacaoMercado }}
+              {{ form.tempoAtuacaoMercado.errors }}
             </div>
         
             <button type="submit" class="btn-env">Próximo</button>
