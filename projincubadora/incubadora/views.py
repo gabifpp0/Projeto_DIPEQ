@@ -3,17 +3,17 @@ from django.http import HttpResponse
 
 # Create your views here.
 
-def telaInicial(self):
-    return HttpResponse("Tela inicial")
+def telaInicial(request):
+    return render(request, 'home.html')
 
-def cadastroEmpresa(self):
-    return HttpResponse("Cadastro da empresa")
+def cadastroEmpresa(request):
+    return render(request,"cadastro.html")
 
-def gestaoPessoas(self):
-    return HttpResponse("Cadastro de gestão de pessoas")
+def gestaoPessoas(request):
+    return render(request,"gestao.html")
 
-def cadastroRedes(self):
-    return HttpResponse("Cadastro das Redes")
+def cadastroRedes(request):
+    return render(request,"redes.html")
 
-def dashboard(self):
-    return HttpResponse("Dashboard")
+def dashboard(request):
+    return render(request,"dashboard.html")

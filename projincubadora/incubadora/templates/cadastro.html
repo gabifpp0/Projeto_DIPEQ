@@ -4,7 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link rel="stylesheet" href="cadastro.css">
+    {% load static %}
+    <link rel="stylesheet" href={% static 'css/cadastro.css' %}>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" rel="stylesheet">
     
@@ -25,7 +26,7 @@
         <div class="container-formulario">
 
           <form class="formulario" method="post" enctype="multipart/form-data">
-
+          {% csrf_token %}
 
             <div class="campos">
               <label for="nome">Razão Social</label>
@@ -38,6 +39,7 @@
               />
             </div>
             
+            {{ form.raza.errors }}
             <div class="campos">
               <label for="email">Nome Fantasia</label>
               <input
@@ -91,7 +93,7 @@
               />
             </div>
         
-            <button type="submit" class="btn-env">Enviar</button>
+            <button type="submit" class="btn-env">Próximo</button>
           </form>
         </div>
       </div>
