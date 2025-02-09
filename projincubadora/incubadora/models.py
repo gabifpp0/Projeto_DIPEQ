@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.exceptions import ValidationError
+from django.utils import timezone
 
 # Create your models here.
 
@@ -18,9 +19,9 @@ class Empresa(models.Model):
             raise ValidationError('O CNPJ deve ter 14 dígitos.')
         if Empresa.objects.filter(cnpj=self.cnpj).exclude(pk=self.pk).exists():
                 raise ValidationError({'cnpj': ("Já existe um cadastro com esse CNPJ.")})
-
     def __str__(self):
-        return self.nomeFantasia
+        # Verifica se o nomeFantasia existe, caso contrário retorna 'Empresa sem nome'
+        return self.nomeFantasia if self.nomeFantasia else "Empresa sem nome"
 
 class GestaoDePessoas(models.Model):
     empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE, related_name="gestao_pessoas") 
@@ -32,10 +33,11 @@ class GestaoDePessoas(models.Model):
     socios = models.CharField(max_length=20, verbose_name="Sócios")
 
     def __str__(self):
-        return self.socios
+        # Verifica se o campo 'socios' está preenchido, caso contrário retorna 'Gestão de Pessoas sem Sócios'
+        return self.socios if self.socios else "Gestão de Pessoas sem Sócios"
 
 class Redes(models.Model):
-    empresa = models.OneToOneField(Empresa, on_delete=models.CASCADE, related_name="redes", null=True)
+    empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE, related_name="redes", null=True)
     website = models.URLField(blank=True, null=True, verbose_name="Website")
     insta = models.URLField(blank=True, null=True, verbose_name="Instagram")
     facebook = models.URLField(blank=True, null=True, verbose_name="Facebook")
@@ -45,17 +47,38 @@ class Redes(models.Model):
     email = models.EmailField(blank=True, null=True, verbose_name="Email")
 
     def __str__(self):
-        return self.email
+        # Verifica se o campo 'email' está preenchido, caso contrário retorna 'Redes sem Email'
+        return self.email if self.email else "Redes sem Email"
 
 class Faturamento(models.Model):
-    empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE, related_name="Empresa")
-    ano = models.IntegerField(verbose_name="Ano")
+    empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE, related_name="faturamentos")
+    ano = models.PositiveIntegerField(verbose_name="Ano de referência")
     faturamento = models.DecimalField(max_digits=15, decimal_places=2, verbose_name="Faturamento Total Anual")
 
-class FaturamentoMensal(models.Model):
-    faturamento = models.ForeignKey(Faturamento, on_delete=models.CASCADE, related_name="Empresa")
-    mes = models.IntegerField(verbose_name="Mês", choices=[(i, i) for i in range(1, 13)])
-    valor = models.DecimalField(max_digits=15, decimal_places=2, verbose_name="Faturamento Mensal")
+    class Meta:
+        unique_together = ['empresa', 'ano']
+        ordering = ['-ano']
 
     def __str__(self):
-        return f"Faturamento {self.mes}/{self.faturamento.ano} - {self.faturamento.empresa.nome_fantasia}"
+        # Verifica se a empresa está associada corretamente e retorna a string desejada
+        return f"{self.empresa.nomeFantasia if self.empresa else 'Empresa Desconhecida'} - {self.ano}"
+
+class FaturamentoMensal(models.Model):
+    meses = [
+        (1, 'Janeiro'), (2, 'Fevereiro'), (3, 'Março'),
+        (4, 'Abril'), (5, 'Maio'), (6, 'Junho'),
+        (7, 'Julho'), (8, 'Agosto'), (9, 'Setembro'),
+        (10, 'Outubro'), (11, 'Novembro'), (12, 'Dezembro')
+    ]
+    
+    faturamento = models.ForeignKey(Faturamento, on_delete=models.CASCADE, related_name="faturamentos_mensais")
+    mes = models.IntegerField(verbose_name="Mês de referência", choices=meses)
+    valor = models.DecimalField(max_digits=15, decimal_places=2, verbose_name="Faturamento Mensal")
+
+    class Meta:
+        unique_together = ['faturamento', 'mes']  
+        ordering = ['-faturamento', '-mes'] 
+
+    def __str__(self):
+        # Verifica se o faturamento e a empresa estão associados corretamente e retorna a string desejada
+        return f"Faturamento {self.mes}/{self.faturamento.ano} - {self.faturamento.empresa.nomeFantasia if self.faturamento and self.faturamento.empresa else 'Empresa Desconhecida'}"

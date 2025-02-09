@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
-from .forms import EmpresaForm, GestaoDePessoasForm, RedesForm
-from .models import Empresa, GestaoDePessoas, Redes
+from .forms import EmpresaForm, GestaoDePessoasForm, RedesForm, FaturamentoForm, FaturamentoMesForm
+from .models import Empresa, GestaoDePessoas, Redes, Faturamento, FaturamentoMensal
+from django.utils import timezone
+from django.forms import modelformset_factory
 
 # Create your views here.
 
@@ -37,7 +39,6 @@ def gestaoPessoas(request):
     else:
         form = GestaoDePessoasForm()
     return render(request, 'gestao.html', {'form': form})
-    #return render(request,"gestao.html")
 
 def cadastroRedes(request):
     empresa_id = request.session.get('empresa_id')
@@ -49,19 +50,45 @@ def cadastroRedes(request):
     if request.method == 'POST':
         form = RedesForm(request.POST)
         if form.is_valid():
-            redes = form.save()
+            redes = form.save(commit=False)
             redes.empresa = empresa
             redes.save()
-            del request.session['empresa_id']
-            return redirect('dashboard')
+            return redirect('faturamento')
         
     else:
         form = RedesForm()
     return render(request, 'redes.html', {'form': form})
-    #return render(request,"redes.html")
 
-#def faturamento(request):
-    #return render(request,"faturamento.html")
+def faturamento(request):
+    empresa_id = request.session.get('empresa_id')
+    if not empresa_id:
+        return redirect('cadastroEmpresa')
+
+    empresa = get_object_or_404(Empresa, id=empresa_id)
+
+    if request.method == 'POST':
+        form = FaturamentoForm(request.POST)
+        if form.is_valid():
+            faturamento = form.save(commit=False)
+            faturamento.empresa = empresa
+            faturamento.save()
+
+            # Criar automaticamente os faturamentos dos últimos 3 meses do último ano registrado
+            meses_atuais = [10, 11, 12]  # Últimos 3 meses (Outubro, Novembro, Dezembro)
+            for mes in meses_atuais:
+                FaturamentoMensal.objects.create(
+                    faturamento=faturamento,
+                    mes=mes,
+                    valor=0  # O usuário pode atualizar depois
+                )
+
+            return redirect('dashboard')
+
+    else:
+        form = FaturamentoForm()
+
+    return render(request, 'faturamento.html', {'form': form})
+
 
 def dashboard(request):
     return render(request,"dashboard.html")

@@ -9,7 +9,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" rel="stylesheet">
     
-    <title>Cadastro</title>
+    <title>Informe o faturamento!</title>
   </head>
   <body>
 
@@ -25,41 +25,51 @@
         
         <div class="container-formulario">
 
-          <form class="formulario" method="post" enctype="multipart/form-data">
+         
+        {% block content %}
+        <h2>Cadastro de Faturamento</h2>
+        <form class="formulario" method="post" enctype="multipart/form-data">
           {% csrf_token %}
 
             <div class="campos">
-              <label for="razao">Razão Social</label>
-              {{ form.razaoSocial }}
-              {{ form.razaoSocial.errors }}
+              <label for="id_ano">Ano</label>
+                {{ form.ano }}
+                {{ form.ano.errors }}
             </div>
-            
+      
             <div class="campos">
-              <label for="fantasia">Nome Fantasia</label>
-              {{ form.nomeFantasia }}
-              {{ form.nomeFantasia.errors }}
+              <label for="id_faturamento">Faturamento</label>
+                {{ form.faturamento }}
+                {{ form.faturamento.errors }}
+            </div>
+
+          <div class="campos">
+            <label for="id_ano">Ano</label>
+                {{ form.ano }}
+                {{ form.ano.errors }}
+          </div>
+      
+          <div class="campos">
+            <label for="id_faturamento">Faturamento</label>
+              {{ form.faturamento }}
+              {{ form.faturamento.errors }}
             </div>
 
             <div class="campos">
-              <label for="cnpj">CNPJ</label>
-              {{ form.cnpj }}
-              {{ form.cnpj.errors }}
-            </div>
-
-            <div class="campos">
-              <label for="area">Área de atuação</label>
-              {{ form.areaAtuacao }}
-              {{ form.areaAtuacao.errors }}
-            </div>
-
-            <div class="campos">
-              <label for="atuacao">Tempo de atuação no mercado</label>
-              {{ form.tempoAtuacaoMercado }}
-              {{ form.tempoAtuacaoMercado.errors }}
+              <label for="id_ano">Ano</label>
+                  {{ form.ano }}
+                  {{ form.ano.errors }}
             </div>
         
-            <button type="submit" class="btn-env">Próximo</button>
-          </form>
+            <div class="campos">
+              <label for="id_faturamento">Faturamento</label>
+                {{ form.faturamento }}
+                {{ form.faturamento.errors }}
+              </div>
+
+          <button type="submit" class="btn-env">Próximo</button>
+        </form>
+        {% endblock %}
         </div>
       </div>
     </div>

@@ -16,3 +16,13 @@ class RedesForm(forms.ModelForm):
     class Meta:
         model = Redes
         fields = ['website', 'insta', 'facebook', 'twitter', 'linkedin', 'zap', 'email']
+
+class FaturamentoForm(forms.ModelForm):
+    class Meta:
+        model = Faturamento
+        fields = ['ano', 'faturamento']
+
+class FaturamentoMesForm(forms.ModelForm):
+    class Meta:
+        model = FaturamentoMensal
+        fields = ['faturamento', 'mes', 'valor'] 

@@ -3,26 +3,28 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
+
   {% load static %}
-  <link rel="stylesheet" href={% static 'css/home.css' %}>
-  <link rel="stylesheet" href="/index.css">
+  <link rel="stylesheet" href="{% static 'css/home.css' %}">
   <title>Home</title>
 </head>
 <body>
-  <header>
-    <nav>
-      <div class="logo">DIPEQ</div>
-      <ul>
-        <li><a href="#home">Home</a></li>
-        <li><a href="#curriculos">Empresas</a></li>
-        <li><a href="#contato">Contato</a></li>
+    <nav class="navbar">
+      <div class="logo">
+          <img src="/static/imgs/cropped-LOGO-DIPEQ.png" alt="dipeq Logo" class="logo-img">
+
+      </div>
+      <ul class="nav-links">
+          <li><a href="#" class="active" >Home</a></li>
+          <li><a href="#">Dashboard</a></li>
+          <li><a href="#">Cadastro</a></li>
+          <li><a href="#">Message</a></li>
+          <li><a href="#">Sobre</a></li>
       </ul>
-    </nav>
-  </header>
-  <div class="welcome">
-    <h1>Bem vindo!</h1>
-  </div>
+      <div class="nav-right">
+          <input type="text" class="search-bar" placeholder="🔍">
+      </div>
+  </nav>
 
   <div class="container">
     <h1>Selecione as opções</h1>
