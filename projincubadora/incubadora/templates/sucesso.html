@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sucesso</title>
+    
+	{% load static %}
+	<link rel="stylesheet" href="{% static 'css/sucesso.css' %}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <img src="/static/imgs/cropped-LOGO-DIPEQ.png" alt="Mondly Logo" class="logo-img">
+        </div>
+        <ul class="nav-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="#" class="active">Dashboard</a></li>
+            <li><a href="#">Cadastro</a></li>
+            <li><a href="#">Message</a></li>
+            <li><a href="#">Support</a></li>
+        </ul>
+        <div class="nav-right">
+            <input type="text" class="search-bar" placeholder="🔍">
+        </div>
+    </nav>
+    
+    <div class="sucesso">
+        <h1>Cadastro feito com Sucesso!</h1>
+        <p>Sua empresa foi cadastrada e um e-mail foi enviado para o destinatário.</p>
+        <a href="{% url 'telaInicial' %}">Voltar para a página inicial</a>
+    </div>
+</body>
+</html>

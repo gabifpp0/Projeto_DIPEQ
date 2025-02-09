@@ -5,15 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
     
-    
-  {% load static %}
-  <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
 </head>
 <body>
     <nav class="navbar">
         <div class="logo">
             <img src="/static/imgs/cropped-LOGO-DIPEQ.png" alt="Mondly Logo" class="logo-img">
-
         </div>
         <ul class="nav-links">
             <li><a href="#">Home</a></li>
@@ -26,34 +24,35 @@
             <input type="text" class="search-bar" placeholder="🔍">
         </div>
     </nav>
+    
     <div class="main-block">
         <div class="container">
-            <div class="card empresas">
-                <h2>Empresas parceiras</h2>
-                <div class="bar">
-                    <h3>Faturamento no último mês</h3>
-        
-                </div>
-            </div>
             <div class="card-group">
-                <div class="card progress">
-                    <h2>Empresas parceiras</h2>
+
+                <div class="card empresas">
+                    <h2>Empresas Cadastradas</h2>
+                    <div class="bar">
+                        <h3>Total:</h3>
+                        <p>{{ total_empresas }}</p>
+                    </div>
                 </div>
+
+                <div class="card progress">
+                    <h2>Total de Funcionários</h2>
+                    <p>{{ total_funcionarios }}</p>
+                </div>
+
                 <div class="card course">
-                    <h2>Quantidade de funcionários</h2>
+                    <h2>Faturamento Abaixo de 50 mil</h2>
+                    <p>{{ empresas_com_faturamento_baixo.count }}</p> 
                 </div>
             </div>
+
             <div class="card faturamento">
                 <h2>Faturamento</h2>
                 <div>
-                    <h3>Faturamento no último mês</h3>
-                    <p>oaiojioj</p>
-                    <p>jsaeadoifj</p>
-                </div>
-                <div>
-                    <h3>Faturamento Anual</h3>
-                    <p>sfjksf</p>
-                    <p>sjfnjkdn</p>
+                    <h3>No Último Ano</h3>
+                    <p>R$ {{ total_faturamento_ultimo_ano|floatformat:2 }}</p>
                 </div>
             </div>
         </div>

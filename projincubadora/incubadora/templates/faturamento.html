@@ -3,75 +3,64 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+    
     {% load static %}
-    <link rel="stylesheet" href={% static 'css/cadastro.css' %}>
+    <link rel="stylesheet" href="{% static 'css/faturamento.css' %}">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" rel="stylesheet">
     
-    <title>Informe o faturamento!</title>
+    <title>Faturamento</title>
   </head>
   <body>
 
     <div class="blocoprincipal">
-    
       <div class="bloco-cor">
         <div class="titulo_colorido">
-          <h1 class="bloco-login-mensagem">Cadastre sua empresa!</h1>
+          <h1 class="bloco-login-mensagem">Informe o faturamento!</h1>
         </div>
       </div>
 
       <div class="bloco_cadastro">
-        
         <div class="container-formulario">
 
-         
-        {% block content %}
-        <h2>Cadastro de Faturamento</h2>
-        <form class="formulario" method="post" enctype="multipart/form-data">
-          {% csrf_token %}
-
+          {% block content %}
+          <form class="formulario" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            
             <div class="campos">
-              <label for="id_ano">Ano</label>
-                {{ form.ano }}
-                {{ form.ano.errors }}
+              <label for="id_faturamento_2022">Faturamento de 2022</label>
+              <input type="text" name="faturamento_2022" id="id_faturamento_2022">
             </div>
-      
             <div class="campos">
-              <label for="id_faturamento">Faturamento</label>
-                {{ form.faturamento }}
-                {{ form.faturamento.errors }}
+              <label for="id_faturamento_2023">Faturamento de 2023</label>
+              <input type="text" name="faturamento_2023" id="id_faturamento_2023">
             </div>
-
-          <div class="campos">
-            <label for="id_ano">Ano</label>
-                {{ form.ano }}
-                {{ form.ano.errors }}
-          </div>
-      
-          <div class="campos">
-            <label for="id_faturamento">Faturamento</label>
-              {{ form.faturamento }}
-              {{ form.faturamento.errors }}
+            <div class="campos">
+              <label for="id_faturamento_2024">Faturamento de 2024</label>
+              <input type="text" name="faturamento_2024" id="id_faturamento_2024">
             </div>
 
+            <h3>Faturamento Mensal - Últimos 3 meses de 2024</h3>
             <div class="campos">
-              <label for="id_ano">Ano</label>
-                  {{ form.ano }}
-                  {{ form.ano.errors }}
+              <label for="id_faturamento_outubro">Faturamento de Outubro</label>
+              <input type="text" name="faturamento_outubro" id="id_faturamento_outubro">
             </div>
-        
             <div class="campos">
-              <label for="id_faturamento">Faturamento</label>
-                {{ form.faturamento }}
-                {{ form.faturamento.errors }}
-              </div>
+              <label for="id_faturamento_novembro">Faturamento de Novembro</label>
+              <input type="text" name="faturamento_novembro" id="id_faturamento_novembro">
+            </div>
+            <div class="campos">
+              <label for="id_faturamento_dezembro">Faturamento de Dezembro</label>
+              <input type="text" name="faturamento_dezembro" id="id_faturamento_dezembro">
+            </div>
 
-          <button type="submit" class="btn-env">Próximo</button>
-        </form>
-        {% endblock %}
+            <button type="submit" class="btn-env">Próximo</button>
+          </form>
+          {% endblock %}
+
         </div>
       </div>
     </div>
+
   </body>
 </html>

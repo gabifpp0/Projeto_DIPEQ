@@ -1,9 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse
 from .forms import EmpresaForm, GestaoDePessoasForm, RedesForm, FaturamentoForm, FaturamentoMesForm
 from .models import Empresa, GestaoDePessoas, Redes, Faturamento, FaturamentoMensal
-from django.utils import timezone
-from django.forms import modelformset_factory
+from django.db.models import Sum
 
 # Create your views here.
 
@@ -67,28 +65,70 @@ def faturamento(request):
     empresa = get_object_or_404(Empresa, id=empresa_id)
 
     if request.method == 'POST':
-        form = FaturamentoForm(request.POST)
-        if form.is_valid():
-            faturamento = form.save(commit=False)
-            faturamento.empresa = empresa
-            faturamento.save()
-
-            # Criar automaticamente os faturamentos dos últimos 3 meses do último ano registrado
-            meses_atuais = [10, 11, 12]  # Últimos 3 meses (Outubro, Novembro, Dezembro)
-            for mes in meses_atuais:
-                FaturamentoMensal.objects.create(
-                    faturamento=faturamento,
-                    mes=mes,
-                    valor=0  # O usuário pode atualizar depois
+        
+        anos = [2022, 2023, 2024]
+        for ano in anos:
+            faturamento_valor = request.POST.get(f'faturamento_{ano}')
+            if faturamento_valor:
+               
+                faturamento, created = Faturamento.objects.get_or_create(
+                    empresa=empresa,
+                    ano=ano,
+                    defaults={'faturamento': faturamento_valor}
                 )
 
-            return redirect('dashboard')
+                if not created:
+                    faturamento.faturamento = faturamento_valor
+                    faturamento.save()
 
-    else:
-        form = FaturamentoForm()
+                if ano == 2024:
+                    meses_atuais = [10, 11, 12] 
+                    for mes in meses_atuais:
+                        
+                        FaturamentoMensal.objects.create(
+                            faturamento=faturamento,
+                            mes=mes,
+                            valor=0 
+                        )
 
-    return render(request, 'faturamento.html', {'form': form})
+        return redirect('sucesso')  
 
+    return render(request, 'faturamento.html')
 
 def dashboard(request):
-    return render(request,"dashboard.html")
+    
+    empresas = Empresa.objects.all()
+
+    
+    total_funcionarios = 0
+    total_faturamento_ultimo_ano = 0
+    total_empresas = empresas.count()  
+
+   
+    empresas_com_faturamento_baixo = Empresa.objects.annotate(faturamento_total=Sum('faturamentos__faturamento')).filter(faturamento_total__lt=50000)
+
+    
+    for empresa in empresas:
+       
+        gestao = empresa.gestao_pessoas.first()  
+        
+        if gestao:
+            total_funcionarios += (gestao.funcionarioCLT + gestao.funcionarioTercerizados + gestao.estagiario)
+
+        
+        ultimo_faturamento = Faturamento.objects.filter(empresa=empresa).order_by('-ano').first()
+
+        if ultimo_faturamento:
+            total_faturamento_ultimo_ano += ultimo_faturamento.faturamento
+
+   
+    return render(request, 'dashboard.html', {
+        'total_funcionarios': total_funcionarios,
+        'total_faturamento_ultimo_ano': total_faturamento_ultimo_ano,
+        'total_empresas': total_empresas, 
+        'empresas_com_faturamento_baixo': empresas_com_faturamento_baixo,
+        'empresas': empresas
+    })
+
+def sucesso(request):
+    return render(request, 'sucesso.html')

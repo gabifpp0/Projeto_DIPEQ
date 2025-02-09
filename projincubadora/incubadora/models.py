@@ -20,7 +20,7 @@ class Empresa(models.Model):
         if Empresa.objects.filter(cnpj=self.cnpj).exclude(pk=self.pk).exists():
                 raise ValidationError({'cnpj': ("Já existe um cadastro com esse CNPJ.")})
     def __str__(self):
-        # Verifica se o nomeFantasia existe, caso contrário retorna 'Empresa sem nome'
+       
         return self.nomeFantasia if self.nomeFantasia else "Empresa sem nome"
 
 class GestaoDePessoas(models.Model):
@@ -33,7 +33,7 @@ class GestaoDePessoas(models.Model):
     socios = models.CharField(max_length=20, verbose_name="Sócios")
 
     def __str__(self):
-        # Verifica se o campo 'socios' está preenchido, caso contrário retorna 'Gestão de Pessoas sem Sócios'
+        
         return self.socios if self.socios else "Gestão de Pessoas sem Sócios"
 
 class Redes(models.Model):
@@ -47,7 +47,7 @@ class Redes(models.Model):
     email = models.EmailField(blank=True, null=True, verbose_name="Email")
 
     def __str__(self):
-        # Verifica se o campo 'email' está preenchido, caso contrário retorna 'Redes sem Email'
+        
         return self.email if self.email else "Redes sem Email"
 
 class Faturamento(models.Model):
@@ -60,7 +60,7 @@ class Faturamento(models.Model):
         ordering = ['-ano']
 
     def __str__(self):
-        # Verifica se a empresa está associada corretamente e retorna a string desejada
+        
         return f"{self.empresa.nomeFantasia if self.empresa else 'Empresa Desconhecida'} - {self.ano}"
 
 class FaturamentoMensal(models.Model):
@@ -80,5 +80,4 @@ class FaturamentoMensal(models.Model):
         ordering = ['-faturamento', '-mes'] 
 
     def __str__(self):
-        # Verifica se o faturamento e a empresa estão associados corretamente e retorna a string desejada
         return f"Faturamento {self.mes}/{self.faturamento.ano} - {self.faturamento.empresa.nomeFantasia if self.faturamento and self.faturamento.empresa else 'Empresa Desconhecida'}"
