@@ -69,14 +69,17 @@ body {
 }
 
 .main-block {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
     width: 80%;
-    margin: 80px auto;
+    height: 580px;
+    margin: 100px auto;
     background-color: white;
     border-radius: 15px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     padding: 20px;
     display: flex;
-    flex-direction: column;
 }
 
 .container {
@@ -93,11 +96,13 @@ body {
     padding: 20px;
     margin: 10px;
     box-sizing: border-box;
-    min-width: 250px; 
+    min-width: 450px; 
+    height: 200px;
 }
 
 .card h2 {
     margin-top: 0;
+    color: #6C7D58;
 }
 
 .card-group {
@@ -143,17 +148,13 @@ body {
 }
 
 .faturamento div {
+    width: 40%s;
     margin: 10px 0;
     padding: 10px;
     border-radius: 5px;
 }
 
-.faturamento div:nth-child(odd) {
-    background-color: #6C7D58;
-    color: white;
-}
-
 .faturamento div:nth-child(even) {
-    background-color: #B85C60;
+    background-color: #6C7D58;
     color: white;
 }
