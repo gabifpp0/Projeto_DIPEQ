@@ -35,7 +35,7 @@ class Empresa(models.Model):
 
         if self.tempoAtuacaoMercado < 0:
             raise ValidationError({'tempoAtuacaoMercado': "O tempo de atuação no mercado não pode ser negativo."})
-        
+
     def __str__(self):
         return self.nomeFantasia if self.nomeFantasia else "Empresa sem nome"
 
@@ -58,6 +58,9 @@ class GestaoDePessoas(models.Model):
             raise ValidationError({'funcionarioTercerizados': "O número de funcionários terceirizados não pode ser negativo."})
         if self.estagiario < 0:
             raise ValidationError({'estagiario': "O número de estagiários não pode ser negativo."})
+
+    class Meta:
+        verbose_name_plural="Gestão de Pessoas"
 
     def __str__(self):
         return self.socios if self.socios else "Gestão de Pessoas sem Sócios"
@@ -111,6 +114,7 @@ class FaturamentoMensal(models.Model):
     class Meta:
         unique_together = ['faturamento', 'mes']  
         ordering = ['-faturamento', '-mes'] 
+        verbose_name_plural="Faturamentos mensais"
 
     def __str__(self):
         return f"Faturamento {self.mes}/{self.faturamento.ano} - {self.faturamento.empresa.nomeFantasia if self.faturamento and self.faturamento.empresa else 'Empresa Desconhecida'}"
