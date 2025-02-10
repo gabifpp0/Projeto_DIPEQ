@@ -1,54 +1,63 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  {% load static %}
-  <link rel="stylesheet" href="{% static 'css/home.css' %}">
-  <title>Home</title>
-</head>
-<body>
-    <nav class="navbar">
-      <div class="logo">
-          <img src="/static/imgs/cropped-LOGO-DIPEQ.png" alt="dipeq Logo" class="logo-img">
-
-      </div>
-      <ul class="nav-links">
-          <li><a href="#" class="active" >Home</a></li>
-          <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
-          <li><a href="{% url 'cadastroEmpresa' %}">Cadastro</a></li>
-          <li><a href="#">Message</a></li>
-          <li><a href="#">Sobre</a></li>
-      </ul>
-      <div class="nav-right">
-          <input type="text" class="search-bar" placeholder="🔍">
-      </div>
-  </nav>
-
-  <div class="container">
-    <h1>Selecione as opções</h1>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
-    <div class="options">
-      
-      <div class="option selected">
-        <a href="{% url 'cadastroEmpresa' %}">
-            <div class="icon">📄</div>
-            <h2>Novo cadastro</h2>
-            <p>Cadastre aqui sua empresa!</p>
-        </a>
-      </div>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Aboreto&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.cdnfonts.com/css/hvdtrial-brandon-grotesque"
+      rel="stylesheet"
+    />
+    <title>Tá Seguro</title>
+  </head>
+  <body>
+    <main>
+      <header>
+        <nav class="navbar">
+        <div class="logo">
+            <img src="static/imgs/cropped-LOGO-DIPEQ.png" alt="Mondly Logo" class="logo-img">
 
-      <div class="option">
-        <a href="{% url 'dashboard' %}">
-            <div class="icon">📊</div>
-            <h2>Dashboard</h2>
-            <p>Veja aqui a relação de empresas parceiras!</p>
-        </a>
-      </div>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#"class="active">Home</a></li>
+            <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+            <li><a href="{% url 'cadastroEmpresa' %}">Cadastro</a></li>
+            <li><a href="#">Message</a></li>
+            <li><a href="#">Support</a></li>
+        </ul>
+        <div class="nav-right">
+            <input type="text" class="search-bar" placeholder="🔍">
+        </div>
+    </nav>
+      </header>
 
-    </div>
-    
-  </div>
-</body>
+      <div class="fundo-azul">
+        <div class="wrapper content">
+          <img
+            class="hero-img"
+            src="/static/imgs/piece-modern-futuristic-building.jpg"
+          />
+
+          <div class="hero-content">
+            <img src="/static/imgs/it.webp" />
+            <h1>ITNC</h1>
+            <h2>Venha fazer parte!</h2>
+            <h3>
+              ORIENTANDO EMPREENDEDORES LOCAIS PARA VIABILIZAR SEUS PROJETOS E NEGÓCIOS DE INOVAÇÃO.
+            </h3>
+            <button class="hero-btn" type="button" href="{% url 'cadastroEmpresa' %}">Cadastrar Agora</button>
+          </div>
+        </div>
+      </div>
+      <footer></footer>
+    </main>
+  </body>
 </html>
