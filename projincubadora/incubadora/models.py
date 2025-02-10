@@ -76,9 +76,6 @@ class Redes(models.Model):
         if self.zap:
             if not self.zap.isdigit() or len(self.zap) < 11:
                 raise ValidationError({'zap': 'Por favor, insira um número de WhatsApp válido (somente números).'})
-
-        if Empresa.objects.filter(email=self.email).exclude(pk=self.pk).exists():
-            raise ValidationError({'email': "Este e-mail já está registrado para outra empresa."})
     
     def __str__(self):
         return self.email if self.email else "Redes sem Email"

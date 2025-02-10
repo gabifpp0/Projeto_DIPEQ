@@ -73,7 +73,7 @@
   .bloco-cor { /**/
     display: flex;
     flex-wrap: wrap;
-    background-image: url("/static/imgs/docai2.jpg");
+    background-image: url("/static/imgs/sunny.jpg");
     background-size: cover;
     height: 600px;
     width: 400px;

@@ -167,6 +167,7 @@
     border-radius: 20px;
     font-size: large;
     cursor: pointer;
+    text-decoration: none;
   }
   
   .hero-btn:hover {

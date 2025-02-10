@@ -65,17 +65,12 @@ def faturamento(request):
     empresa = get_object_or_404(Empresa, id=empresa_id)
 
     if request.method == 'POST':
-        
         anos = [2022, 2023, 2024]
         for ano in anos:
             faturamento_valor = request.POST.get(f'faturamento_{ano}')
             if faturamento_valor:
-               
-                faturamento, created = Faturamento.objects.get_or_create(
-                    empresa=empresa,
-                    ano=ano,
-                    defaults={'faturamento': faturamento_valor}
-                )
+                faturamento, created = Faturamento.objects.get_or_create(empresa=empresa,ano=ano,defaults=
+                            {'faturamento': faturamento_valor})
 
                 if not created:
                     faturamento.faturamento = faturamento_valor
@@ -84,44 +79,28 @@ def faturamento(request):
                 if ano == 2024:
                     meses_atuais = [10, 11, 12] 
                     for mes in meses_atuais:
-                        
-                        FaturamentoMensal.objects.create(
-                            faturamento=faturamento,
-                            mes=mes,
-                            valor=0 
-                        )
-
+                        FaturamentoMensal.objects.create(faturamento=faturamento,mes=mes,valor=0 )
         return redirect('sucesso')  
-
     return render(request, 'faturamento.html')
 
 def dashboard(request):
-    
     empresas = Empresa.objects.all()
 
-    
     total_funcionarios = 0
     total_faturamento_ultimo_ano = 0
     total_empresas = empresas.count()  
 
-   
     empresas_com_faturamento_baixo = Empresa.objects.annotate(faturamento_total=Sum('faturamentos__faturamento')).filter(faturamento_total__lt=50000)
 
-    
     for empresa in empresas:
-       
         gestao = empresa.gestao_pessoas.first()  
-        
         if gestao:
             total_funcionarios += (gestao.funcionarioCLT + gestao.funcionarioTercerizados + gestao.estagiario)
-
-        
         ultimo_faturamento = Faturamento.objects.filter(empresa=empresa).order_by('-ano').first()
 
         if ultimo_faturamento:
             total_faturamento_ultimo_ano += ultimo_faturamento.faturamento
 
-   
     return render(request, 'dashboard.html', {
         'total_funcionarios': total_funcionarios,
         'total_faturamento_ultimo_ano': total_faturamento_ultimo_ano,
