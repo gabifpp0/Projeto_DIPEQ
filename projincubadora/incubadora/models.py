@@ -12,15 +12,31 @@ class Empresa(models.Model):
     tempoAtuacaoMercado = models.IntegerField(verbose_name="Tempo de Atuação no Mercado")
 
     def clean(self):
+        
         #Validação do CNPJ
         if not self.cnpj.isdigit():
             raise ValidationError('O CNPJ deve conter apenas números.')
         if len(self.cnpj) != 14:
             raise ValidationError('O CNPJ deve ter 14 dígitos.')
+        
+
         if Empresa.objects.filter(cnpj=self.cnpj).exclude(pk=self.pk).exists():
                 raise ValidationError({'cnpj': ("Já existe um cadastro com esse CNPJ.")})
+        
+        if len(self.razaoSocial) < 5:
+            raise ValidationError({'razaoSocial': "A razão social deve ter pelo menos 5 caracteres."})
+
+    
+        if len(self.nomeFantasia) < 3:
+            raise ValidationError({'nomeFantasia': "O nome fantasia deve ter pelo menos 3 caracteres."})
+
+        if len(self.areaAtuacao) < 3:
+            raise ValidationError({'areaAtuacao': "A área de atuação deve ter pelo menos 3 caracteres."})
+
+        if self.tempoAtuacaoMercado < 0:
+            raise ValidationError({'tempoAtuacaoMercado': "O tempo de atuação no mercado não pode ser negativo."})
+        
     def __str__(self):
-       
         return self.nomeFantasia if self.nomeFantasia else "Empresa sem nome"
 
 class GestaoDePessoas(models.Model):
@@ -30,24 +46,41 @@ class GestaoDePessoas(models.Model):
     funcionarioTercerizados = models.IntegerField(verbose_name="Funcionários Terceirizados")
     estagiario = models.IntegerField(verbose_name="Estagiários")
     numSocios = models.IntegerField(verbose_name="Quantidade de Sócios")
-    socios = models.CharField(max_length=20, verbose_name="Sócios")
+    socios = models.CharField(max_length=200,verbose_name="Sócios")
+
+    def clean(self):
+        if self.capitalSocial < 0:
+            raise ValidationError({'capitalSocial': "O capital social não pode ser negativo."})
+
+        if self.funcionarioCLT < 0:
+            raise ValidationError({'funcionarioCLT': "O número de funcionários CLT não pode ser negativo."})
+        if self.funcionarioTercerizados < 0:
+            raise ValidationError({'funcionarioTercerizados': "O número de funcionários terceirizados não pode ser negativo."})
+        if self.estagiario < 0:
+            raise ValidationError({'estagiario': "O número de estagiários não pode ser negativo."})
 
     def __str__(self):
-        
         return self.socios if self.socios else "Gestão de Pessoas sem Sócios"
 
 class Redes(models.Model):
     empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE, related_name="redes", null=True)
-    website = models.URLField(blank=True, null=True, verbose_name="Website")
+    website = models.URLField(blank=True, verbose_name="Website")
     insta = models.URLField(blank=True, null=True, verbose_name="Instagram")
     facebook = models.URLField(blank=True, null=True, verbose_name="Facebook")
     twitter = models.URLField(blank=True, null=True, verbose_name="Twitter")
     linkedin = models.URLField(blank=True, null=True, verbose_name="LinkedIn")
     zap = models.CharField(max_length=15, blank=True, null=True, verbose_name="WhatsApp")
-    email = models.EmailField(blank=True, null=True, verbose_name="Email")
+    email = models.EmailField(blank=True, null = True, verbose_name="Email")
 
+    def clean(self):
+        if self.zap:
+            if not self.zap.isdigit() or len(self.zap) < 11:
+                raise ValidationError({'zap': 'Por favor, insira um número de WhatsApp válido (somente números).'})
+
+        if Empresa.objects.filter(email=self.email).exclude(pk=self.pk).exists():
+            raise ValidationError({'email': "Este e-mail já está registrado para outra empresa."})
+    
     def __str__(self):
-        
         return self.email if self.email else "Redes sem Email"
 
 class Faturamento(models.Model):
@@ -55,12 +88,15 @@ class Faturamento(models.Model):
     ano = models.PositiveIntegerField(verbose_name="Ano de referência")
     faturamento = models.DecimalField(max_digits=15, decimal_places=2, verbose_name="Faturamento Total Anual")
 
+    def clean(self):
+        if self.faturamento < 0:
+            raise ValidationError({'faturamento': "O faturamento não pode ser negativo."})
+    
     class Meta:
         unique_together = ['empresa', 'ano']
         ordering = ['-ano']
 
     def __str__(self):
-        
         return f"{self.empresa.nomeFantasia if self.empresa else 'Empresa Desconhecida'} - {self.ano}"
 
 class FaturamentoMensal(models.Model):

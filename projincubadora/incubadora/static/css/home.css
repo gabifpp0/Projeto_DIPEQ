@@ -117,15 +117,15 @@
   .hero-content {
     gap: 30px;
     display: flex;
-    flex-direction: column; /* Mantém os itens empilhados verticalmente */
-    align-items: flex-start; /* Alinha tudo à esquerda */
-    justify-content: center; /* Centraliza verticalmente dentro da div */
-    text-align: left; /* Garante que os textos fiquem alinhados à esquerda */
+    flex-direction: column; 
+    align-items: flex-start; 
+    justify-content: center; 
+    text-align: left; 
     position: absolute;
-    left: 10%; /* Ajuste conforme necessário para posicionar melhor */
+    left: 10%;
     top: 50%;
-    transform: translateY(-50%); /* Centraliza verticalmente */
-    max-width: 500px; /* Define uma largura máxima para evitar que o conteúdo se espalhe demais */
+    transform: translateY(-50%); 
+    max-width: 500px; 
   }
   .hero-content h1 {
     font-weight: 2000;
@@ -154,13 +154,13 @@
   }
   
   .hero-content img {
-    width: 50px; /* Ajuste conforme necessário */
-    height: auto; /* Mantém a proporção */
+    width: 50px;
+    height: auto; 
   }
   
   
   .hero-btn {
-    color: #021B38;
+    color: #5A7D31;
     background: #ddd;
     border: 1px solid #e2f0ff;
     padding: 20px 65px;
@@ -177,39 +177,6 @@
   
   .hero-seta {
     width: 40px;
-  }
-  
-  .section-container {
-    display: flex;
-    max-width: 1440px;
-    justify-content: space-between;
-    margin: 0 auto;
-    gap: 230px;
-    padding-top: 10rem;
-  }
-  
-  .section-title {
-    color: #577B99;
-    font-size: x-large;
-    font-weight: 600;
-  }
-  
-  .section-text-1 {
-  
-    color: #313639;
-    font-size: xxx-large;
-    max-width: 565px;
-    font-weight: 700;
-    margin-top: 2rem;
-    margin-bottom: 1rem;
-  }
-  
-  .section-text-2 {
-    font-family: 'Montserrat', sans-serif;
-    color: #313639;
-    max-width: 480px;
-    font-size: larger;
-    font-weight: 600;
   }
   
   .img-container {
@@ -247,111 +214,18 @@
     transition: all 0.3s ease-in;
   }
   
-  .circle {
-    width: 15px;
-    height: 15px;
-    background-color: #FFAC0A; /* Cor da bola */
-    border-radius: 50%; /* Faz o círculo */
-    display: inline-block;
-  }
-  
-  .empresas {
-    background: #ECE7E5;
-    max-width: 1440px;
-    margin: 0 auto;
-    padding: 55px 30px;
-    border-radius: 30px;
-    margin-top: 8rem;
-    overflow: hidden;
-  }
-  
-  .empresas-content {
-    display: flex;
-    width: fit-content;
-    animation: slide 15s linear infinite; /* A animação que se repete */
-  }
-  
-  .empresas-content img {
-    height: auto;
-    object-fit: contain;
-    margin-right: 50px; /* Espaçamento entre as imagens */
-  }
-  
   .btn-container {
     display: flex;
     gap: 10px;
     margin-top: 2rem;
   }
   
-  .circle-btn {
-    padding: 20px 20px;
-    background: #3A3A3C;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    border: none;
-    position: relative;
-  }
-  
-  .circle-btn:hover {
-    background: #5f5f63;
-  }
-  
-  .arrow {
-    width: 10px;
-    height: 10px;
-    border-right: 3px solid white;
-    border-bottom: 3px solid white;
-  }
-  
-  .circle-btn.left .arrow {
-    transform: rotate(135deg); /* Rotaciona para a esquerda */
-  }
-  
-  .circle-btn.right .arrow {
-    transform: rotate(-45deg); /* Mantém a seta para a direita */
-  }
-  
-  .reviews .section-text-1 {
-    font-family: 'Montserrat', sans-serif;
-    color: #313639;
-    font-size: xxx-large;
-    max-width: 565px;
-    font-weight: 700;
-    margin-top: 2rem;
-    margin-bottom: 1rem;
-  }
-  
-  .carousel-container {
-    position: relative;
-    display: flex;
-  }
-  
-  .carousel {
-    display: flex;
-    gap: 10px;
-    transition: transform 0.5s ease-in-out;
-  }
-  
-  .carousel-item {
-    font-family: 'Montserrat', sans-serif;
-    padding: 20px;
-    border-radius: 10px;
-    font-size: large;
-    display: flex;
-    color: #ebf4ff;
-    flex-direction: column;
-    justify-content: space-between;
-    max-width: 300px;
-  }
-  
+
   @keyframes slide {
     0% {
-      transform: translateX(100%); /* Começa no início */
+      transform: translateX(100%);
     }
     100% {
-      transform: translateX(-100%); /* Final da animação, move 100% */
+      transform: translateX(-100%); 
     }
   }
